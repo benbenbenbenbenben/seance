@@ -21,6 +21,9 @@
   },
   "dependencies": {
     "edge": "^6.5.1",
+    "fast-template-matcher": "^1.0.1",
+    "monkey-opencv": "^1.0.1",
+    "opencv": "^6.0.0",
     "rfb2": "^0.2.0"
   }
 }
