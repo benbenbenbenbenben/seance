@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <style>
+    body {
+    /* background-image: url('./assets/Artboard 1.png'); */
+      background-color: white;
+    }
+    #footer {
+      position : absolute;
+      bottom : 0;
+      height : 40px;
+      margin-top : 40px;
+    }
+    #editor {
+       position: absolute;
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left: 0;
+   }
+    </style>
+  <title>electron-quick-start</title>
+
+  <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  </head>
+  <body>
+    <div id="editor">function foo(items) {
+    var x = "All this is syntax highlighted";
+    return x;
+    }</div>
+    <!--div id="footer">
+      <p><span id="footer_message">loading messge here</span></p>
+    </div-->
+  </body>
+
+  <script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      editor.getSession().setMode("ace/mode/javascript");
+  </script>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./editor.js')
+  </script>
+</html>

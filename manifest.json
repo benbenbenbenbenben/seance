@@ -1,0 +1,6 @@
+{
+  "name": "electron-quick-start",
+  "short_name": "electron-quick-start",
+  "start_url": "/",
+  "display": "standalone"
+}

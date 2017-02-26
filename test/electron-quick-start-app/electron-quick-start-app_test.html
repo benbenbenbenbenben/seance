@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>electron-quick-start-app test</title>
+
+    <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../src/electron-quick-start-app/electron-quick-start-app.html">
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <electron-quick-start-app></electron-quick-start-app>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('electron-quick-start-app', function() {
+        test('instantiating the element works', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 'electron-quick-start-app');
+        });
+      });
+    </script>
+  </body>
+</html>

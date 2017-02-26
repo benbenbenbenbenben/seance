@@ -10,14 +10,31 @@ const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let splashScreen
 
-function createWindow () {
+function createSplashScreen() {
+  splashScreen = new BrowserWindow({width: 500, height: 240, frame:false})
+
+  splashScreen.loadURL(url.format({
+    pathname: path.join(__dirname, 'splash.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+
+  splashScreen.on('closed', function() {
+    splashScreen = null
+  })
+
+  createMainWindow();
+}
+
+function createMainWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'editor.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -32,12 +49,15 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+
+
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', createSplashScreen)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

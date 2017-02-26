@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+
+  <title>electron-quick-start</title>
+    <meta name="description" content="electron-quick-start description">
+
+
+<!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="./manifest.json">
+
+
+  <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="./src/electron-quick-start-app/electron-quick-start-app.html">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <electron-quick-start-app></electron-quick-start-app>
   </body>
 
   <script>

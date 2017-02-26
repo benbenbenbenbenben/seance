@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-tree/paper-tree.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+
+<dom-module id="electron-quick-start-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div></div>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'electron-quick-start-app',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'electron-quick-start-app',
+        },
+      },
+
+      openImage: function() {
+        const {dialog} = require('electron').remote
+        console.log(dialog.showOpenDialog({
+          properties: ['openFolder']}))
+      },
+
+      takeScreenshot: function() {
+        rendererFunc();
+      }
+
+    });
+  </script>
+</dom-module>
