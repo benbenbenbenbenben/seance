@@ -35,7 +35,8 @@ function createMainWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'vnc.html'),
+    title: "hello",
+    pathname: path.join(__dirname, 'editor.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -52,8 +53,6 @@ function createMainWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-
-
 
 }
 

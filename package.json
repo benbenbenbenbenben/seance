@@ -1,12 +1,12 @@
 {
-  "name": "electron-quick-start",
+  "name": "seance-test-kit",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "séance test kit is an integrated test development environment that works with almost everything",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/benbenbenbenbenben/seance",
   "keywords": [
     "Electron",
     "quick",
@@ -14,7 +14,14 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": {
+    "name": "David Charnock"
+  },
+  "contributors": [
+    {
+      "name": "Benjamin Babik Veermae"
+    }
+  ],
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^1.4.1"

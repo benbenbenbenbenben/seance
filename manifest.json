@@ -1,6 +1,6 @@
 {
-  "name": "electron-quick-start",
-  "short_name": "electron-quick-start",
+  "name": "séance test kit",
+  "short_name": "séance test kit",
   "start_url": "/",
   "display": "standalone"
 }
