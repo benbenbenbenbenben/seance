@@ -6,6 +6,7 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+//const VncView = require('./vnc/atom-vnc/lib/vnc-view.js')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -34,10 +35,12 @@ function createMainWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'editor.html'),
+    pathname: path.join(__dirname, 'vnc.html'),
     protocol: 'file:',
     slashes: true
   }))
+
+  //mainWindow.initialize();
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()

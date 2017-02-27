@@ -1,0 +1,6 @@
+<script>
+VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
+const vncView = new VncView;
+document.write(vncView.content());
+vncView.initialize();
+</script>
