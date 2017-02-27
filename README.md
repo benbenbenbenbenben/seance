@@ -1,38 +1,36 @@
-# \<electron-quick-start\>
+fake readme fake readme
 
+# Séance Test Kit
 
+Séance Test Kit is an integrated environment for software testing.
 
-## Install the Polymer-CLI
+With Séance Test Kit you can test against:
+* remote systems that support vnc/rfb
+ * like desktops
+ * and mobile devices
+* your local desktop
+* web applications
+* other things
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+If it sounds rather vague and general, that's because it is. If Séance can't test something, you can write a medium so that it can.
 
-## Viewing Your Application
+The following mediums exist or are planned:
 
-```
-$ polymer serve
-```
+* geistjs - see images and sends hid commands
+* brassjs - see webpages and send javascript
 
-## Building Your Application
-
-```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
+For example:
 
 ```
-$ polymer serve build/bundled
-```
+// cooldogs.seance.js
+// google search for cool dogs
 
-## Running Tests
+medium = geistjs.local()
 
-```
-$ polymer test
-```
+open("http://google.com")
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+type("cool dogs")
+press(enter)
+
+assert.isvisible("More images for cool dogs")
+```
