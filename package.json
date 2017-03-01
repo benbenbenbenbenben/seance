@@ -29,6 +29,7 @@
   "dependencies": {
     "chokidar": "^1.6.1",
     "edge": "^6.5.1",
+    "electron": "^1.4.15",
     "fast-template-matcher": "^1.0.1",
     "monkey-opencv": "^1.0.1",
     "opencv": "^6.0.0",

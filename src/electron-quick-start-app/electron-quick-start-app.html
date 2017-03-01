@@ -27,7 +27,7 @@
     <paper-tree id="tree" actions='[{
         "label": "Play",
         "event": "play"
-    }]'>
+    }]' on-dblclick="doubleClickTreeItem">
  </paper-tree>
 
   </template>
@@ -44,28 +44,32 @@
         },
       },
 
+      doubleClickTreeItem: function(event) {
+        debugger;
+      },
+
       ready: function() {
         this.$.tree.data = {name:"loading...", icon:"cached"};
         var tree = this.$.tree;
-        var data = {name:"root", icon:"folder", children:[]};
-        const testFolder = './';
+        var data = {name:"examples", icon:"folder", children:[]};
+        const testFolder = 'C:\\Users\\ben\\Source\\Repos\\electron-quick-start\\examples';
 
         var chokidar = require('chokidar');
 
         // One-liner for current directory, ignores .dotfiles
-        chokidar.watch('.', {ignored: /(^|[\/\\])\../}).on('all', (event, path) => {
+        chokidar.watch('.', {cwd:testFolder, ignored: /(^|[\/\\])\../}).on('all', (event, path) => {
+
           switch(event) {
             case "add":
-            break;
+              var icon = "icons:assignment";
             case "addDir":
-
               var at = data.children;
               var split = path.replace(/\\/g,"/").split("/");
-              split.forEach(node => {
-                if (node == ".")
+              split.forEach((node, i) => {
+                if (node == "." || node == "")
                   return;
                 if (at.filter(any => any.name == node).length == 0) {
-                  at.push({name:node, icon:"folder", children:[]});
+                  at.push({name:node, icon:icon || "icons:folder", children:[]});
                 }
                 at = at.filter(any => any.name == node)[0].children;
               });
