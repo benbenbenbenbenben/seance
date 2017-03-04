@@ -55,6 +55,7 @@
       },
 
       changeDirectory: function(directory) {
+        directory = require('fs').realpathSync(directory)
         var dirparts = directory.replace(/\\/g,"/").split("/");
         var dirname = dirparts[dirparts.length - 1];
 
@@ -98,7 +99,8 @@
       },
 
       doubleClickTreeItem: function(event, node) {
-        this.fire('request-open', node.data.fullname);
+        if (node.data && node.data.fullname)
+          this.fire('request-open', node.data.fullname);
       },
 
       ready: function() {

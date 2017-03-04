@@ -20,6 +20,6 @@ var menu = Menu.buildFromTemplate([
 ]);
 Menu.setApplicationMenu(menu);
 
-editor.setValue(`function(){
-
-}`, 1);
+//editor.setValue(`function(){
+//
+//}`, 1);

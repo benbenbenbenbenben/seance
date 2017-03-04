@@ -4,7 +4,7 @@
   "description": "seance test kit is an integrated test development environment that works with almost everything",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --debug"
   },
   "repository": "https://github.com/benbenbenbenbenben/seance",
   "keywords": [

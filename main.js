@@ -56,7 +56,7 @@ function createMainWindow () {
   })
 
 }
-function openEditor() {
+function openEditor(file) {
   let editorWindow = new BrowserWindow()
   editorWindow.loadURL(url.format({
     title: "editor",
@@ -64,8 +64,25 @@ function openEditor() {
     protocol: 'file:',
     slashes: true
   }))
+
+  editorWindow.webContents.openDevTools()
+  editorWindow.tag = {
+    filename: file
+  }
   editorWindows.push(editorWindow)
   //editorWindow.on('closed', () => editorWindow = null)
+
+  editorWindow.webContents.on("dom-ready", function(){
+    editorWindow.webContents.executeJavaScript(`
+      debugger;
+      editor.filename = '${file}';
+      let content = require('fs').readFileSync('${file}', 'utf8');
+      editor.setValue(content, 1);
+      editor.session.getUndoManager().reset();
+     `);
+  })
+
+  return editorWindow;
 }
 
 // This method will be called when Electron has finished
@@ -91,7 +108,13 @@ app.on('activate', function () {
 })
 
 global.requestOpen = function(file) {
-   console.log(file)
+  var found = editorWindows.filter(win => win.tag.filename == file)
+  if (found.length > 0) {
+    found[0].show()
+    found[0].restore()
+  } else {
+    var editor = openEditor(file);
+  }
 }
 
 // In this file you can include the rest of your app's specific main process
