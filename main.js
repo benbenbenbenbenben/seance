@@ -37,7 +37,7 @@ function createMainWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     title: "hello",
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'vnc.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -70,11 +70,14 @@ function openEditor(file) {
     filename: file
   }
   editorWindows.push(editorWindow)
-  //editorWindow.on('closed', () => editorWindow = null)
+  editorWindow.on('closed', () => {
+    var index = editorWindows.indexOf(editorWindow)
+    editorWindows.splice(index, 1)
+    editorWindow = null
+  })
 
   editorWindow.webContents.on("dom-ready", function(){
     editorWindow.webContents.executeJavaScript(`
-      debugger;
       editor.filename = '${file}';
       let content = require('fs').readFileSync('${file}', 'utf8');
       editor.setValue(content, 1);
