@@ -27,7 +27,7 @@
     <paper-tree id="tree" actions='[{
         "label": "Play",
         "event": "play"
-    }]' on-dblclick="doubleClickTreeItem">
+    }]' on-double-tap="doubleClickTreeItem">
  </paper-tree>
 
   </template>
@@ -44,8 +44,8 @@
         },
       },
 
-      doubleClickTreeItem: function(event) {
-        debugger;
+      doubleClickTreeItem: function(event, node) {
+        this.fire('request-open', node.data);
       },
 
       ready: function() {

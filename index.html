@@ -13,16 +13,38 @@
     <link rel="manifest" href="./manifest.json">
 
 
-  <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="./src/seance-projectview/seance-projectview.html">
+
+    <style>
+      body {
+        -webkit-user-select: none; /* Chrome/Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
+
+        /* Rules below not implemented in browsers yet */
+        -o-user-select: none;
+        user-select: none;
+      }
+    </style>
+
   </head>
   <body>
-    <seance-projectview></seance-projectview>
+    <seance-projectview id="projectView"></seance-projectview>
   </body>
 
   <script>
     // You can also require other files to run in this process
     require('./renderer.js')
+
+
   </script>
+  <script>
+   HTMLImports.whenReady(function () {
+     projectView.addEventListener("request-open", function(event) {
+       console.log("requested open for", event.detail)
+     });
+   });
+ </script>
 </html>

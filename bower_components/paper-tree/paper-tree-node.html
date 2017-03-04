@@ -204,6 +204,15 @@ Custom property | Description | Default
          */
         select: function() {
             this.fire("select", this);
+            if (this.selectDbl) {
+              this.toggleChildren();
+              this.fire("double-tap", this);
+            } else {
+              this.selectDbl = true;
+              this.async(() => {
+                this.selectDbl = false;
+              }, 400 /* TODO OS double click time? */);
+            }
         },
 
         /**
