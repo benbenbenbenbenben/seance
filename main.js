@@ -12,6 +12,7 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let splashScreen
+let editorWindows = []
 
 function createSplashScreen() {
 //  splashScreen = new BrowserWindow({width: 500, height: 240, frame:false})
@@ -55,6 +56,17 @@ function createMainWindow () {
   })
 
 }
+function openEditor() {
+  let editorWindow = new BrowserWindow()
+  editorWindow.loadURL(url.format({
+    title: "editor",
+    pathname: path.join(__dirname, 'editor.frame.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+  editorWindows.push(editorWindow)
+  //editorWindow.on('closed', () => editorWindow = null)
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -77,6 +89,10 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+global.requestOpen = function(file) {
+   console.log(file)
+}
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

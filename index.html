@@ -44,7 +44,12 @@
    HTMLImports.whenReady(function () {
      projectView.addEventListener("request-open", function(event) {
        console.log("requested open for", event.detail)
+       let fnc = require('electron').remote.getGlobal('requestOpen')
+       console.log(fnc)
+       fnc(event.detail)
      });
+
+
    });
  </script>
 </html>
