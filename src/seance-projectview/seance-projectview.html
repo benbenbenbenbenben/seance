@@ -38,60 +38,70 @@
       is: 'seance-projectview',
 
       properties: {
-        prop1: {
+        directory: {
           type: String,
-          value: 'seance-projectview',
+          observer: '_directoryChanged'
         },
       },
 
-      doubleClickTreeItem: function(event, node) {
-        this.fire('request-open', node.data);
+      _directoryChanged: function(newValue, oldValue) {
+        debugger;
+        if (newValue != null && newValue != oldValue) {
+          this.changeDirectory(newValue);
+        }
+        if (newValue == null) {
+          this.$.tree.data = {name:"browse...", icon:"cached"};
+        }
       },
 
-      ready: function() {
-        this.$.tree.data = {name:"loading...", icon:"cached"};
-        var tree = this.$.tree;
-        var data = {name:"examples", icon:"folder", children:[]};
-        const testFolder = 'C:\\Users\\ben\\Source\\Repos\\seance\\examples';
+      changeDirectory: function(directory) {
+        var dirparts = directory.replace(/\\/g,"/").split("/");
+        var dirname = dirparts[dirparts.length - 1];
 
+
+        this.$.tree.data = {};
+        var tree = this.$.tree;
+        var data = {name:dirname, icon:"folder", children:[]};
         var chokidar = require('chokidar');
 
         // One-liner for current directory, ignores .dotfiles
         chokidar
           .watch('.', {
-            cwd:testFolder,
+            cwd:directory,
             ignored: /(^|[\/\\])\../
           })
           .on('all', (event, path) => {
-
-            console.log(path)
-          switch(event) {
-            case "add":
-              var icon = "icons:assignment";
-            case "addDir":
-              var at = data.children;
-              var split = path.replace(/\\/g,"/").split("/");
-              split.forEach((node, i) => {
-                if (node == "." || node == "")
-                  return;
-                if (at.filter(any => any.name == node).length == 0) {
-                  at.push({name:node, icon:icon || "icons:folder", children:[]});
-                }
-                at = at.filter(any => any.name == node)[0].children;
-              });
+            switch(event) {
+              case "add":
+                var icon = "icons:assignment";
+              case "addDir":
+                var at = data.children;
+                var split = path.replace(/\\/g,"/").split("/");
+                split.forEach((node, i) => {
+                  if (node == "." || node == "")
+                    return;
+                  if (at.filter(any => any.name == node).length == 0) {
+                    at.push({name:node, fullname:`${directory}/${path}`.replace(/\\/g,"/"), icon:icon || "icons:folder", children:[]});
+                  }
+                  at = at.filter(any => any.name == node)[0].children;
+                });
               break;
-            case "unlink":
-            break;
-            case "unlinkDir":
-            break;
-          }
-        }).on('ready', () => {
+              case "unlink":
+              break;
+              case "unlinkDir":
+              break;
+            }
+          }).on('ready', () => {
           console.log("ready");
           tree.data = data;
         });
+      },
 
+      doubleClickTreeItem: function(event, node) {
+        this.fire('request-open', node.data.fullname);
+      },
 
-
+      ready: function() {
 
       },
 
