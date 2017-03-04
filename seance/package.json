@@ -1,0 +1,15 @@
+{
+  "name": "seance",
+  "version": "1.0.0",
+  "description": "a test and automation engine with spooky remote viewing",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js --selftest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "proxyquire": "^1.7.11"
+  }
+}

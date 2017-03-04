@@ -14,17 +14,17 @@ let mainWindow
 let splashScreen
 
 function createSplashScreen() {
-  splashScreen = new BrowserWindow({width: 500, height: 240, frame:false})
+//  splashScreen = new BrowserWindow({width: 500, height: 240, frame:false})
+//
+//  splashScreen.loadURL(url.format({
+//    pathname: path.join(__dirname, 'splash.html'),
+//    protocol: 'file:',
+//    slashes: true
+//  }))
 
-  splashScreen.loadURL(url.format({
-    pathname: path.join(__dirname, 'splash.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
-
-  splashScreen.on('closed', function() {
-    splashScreen = null
-  })
+//  splashScreen.on('closed', function() {
+//    splashScreen = null
+//  })
 
   createMainWindow();
 }

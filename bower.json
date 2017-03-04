@@ -1,9 +1,9 @@
 {
-  "name": "séance test kit",
+  "name": "seance test kit",
   "main": "index.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "paper-tree": "^1.0.2",
+    "paper-tree": "https://github.com/benbenbenbenbenben/paper-tree.git#^1.0.2",
     "app-layout": "PolymerElements/app-layout#^0.10.7",
     "paper-drawer-panel": "^1.0.11"
   },
@@ -12,5 +12,8 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "paper-tree": "*"
   }
 }

@@ -10,7 +10,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
-<dom-module id="electron-quick-start-app">
+<dom-module id="seance-projectview">
   <template>
     <style>
       :host {
@@ -35,12 +35,12 @@
   <script>
     Polymer({
 
-      is: 'electron-quick-start-app',
+      is: 'seance-projectview',
 
       properties: {
         prop1: {
           type: String,
-          value: 'electron-quick-start-app',
+          value: 'seance-projectview',
         },
       },
 
@@ -52,13 +52,19 @@
         this.$.tree.data = {name:"loading...", icon:"cached"};
         var tree = this.$.tree;
         var data = {name:"examples", icon:"folder", children:[]};
-        const testFolder = 'C:\\Users\\ben\\Source\\Repos\\electron-quick-start\\examples';
+        const testFolder = 'C:\\Users\\ben\\Source\\Repos\\seance\\examples';
 
         var chokidar = require('chokidar');
 
         // One-liner for current directory, ignores .dotfiles
-        chokidar.watch('.', {cwd:testFolder, ignored: /(^|[\/\\])\../}).on('all', (event, path) => {
+        chokidar
+          .watch('.', {
+            cwd:testFolder,
+            ignored: /(^|[\/\\])\../
+          })
+          .on('all', (event, path) => {
 
+            console.log(path)
           switch(event) {
             case "add":
               var icon = "icons:assignment";

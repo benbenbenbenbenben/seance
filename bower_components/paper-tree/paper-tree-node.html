@@ -27,6 +27,8 @@ Custom property | Description | Default
 @demo
 -->
 
+<link rel="import" href="../iron-icons/iron-icons.html">
+
 <dom-module id="paper-tree-node">
 
     <style>
@@ -98,29 +100,27 @@ Custom property | Description | Default
     <template>
         <div class="node-container">
             <div class="node-row">
-                <span class$="{{_computeClass(data.*)}}" on-click="toggleChildren"></span>
-                <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>
-                <span class="node-name" on-click="select">{{data.name}}</span>
+                <span class$="{{_computeClass(data.*)}}" on-tap="toggleChildren"></span>
+                <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-tap="select"></iron-icon>
+                <span class="node-name" on-tap="select">{{data.name}}</span>
                 <template is="dom-if" if="{{actions}}">
                     <paper-menu-button id="actions">
                         <paper-icon-button icon="more-vert" noink class="dropdown-trigger"></paper-icon-button>
                         <paper-menu class="dropdown-content">
                             <template is="dom-repeat" items="{{actions}}">
-                                <paper-item on-click="_actionClicked">{{item.label}}</paper-item>
+                                <paper-item on-tap="_actionClicked">{{item.label}}</paper-item>
                             </template>
                         </paper-menu>
                     </paper-menu-button>
                 </template>
             </div>
-            <template is="dom-if" if$="{{data.open}}">
-              <ul>
-                  <template is="dom-repeat" items="{{data.children}}">
-                      <li>
-                          <paper-tree-node data="{{item}}" actions="{{actions}}"></paper-tree-node>
-                      </li>
-                  </template>
-              </ul>
-            </template>
+            <ul hidden$={{!data.open}}>
+                <template is="dom-repeat" items="{{data.children}}">
+                    <li>
+                        <paper-tree-node data="{{item}}" actions="{{actions}}"></paper-tree-node>
+                    </li>
+                </template>
+            </ul>
         </div>
     </template>
 
