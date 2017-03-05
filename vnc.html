@@ -1,9 +1,9 @@
-<body style="margin:0;overflow:hidden;">
+<body style="margin:0;overflow:hidden;background:black;">
   <script>
     VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
     const vncView = new VncView;
     document.write(vncView.content());
-    vncView.initialize();
+    //vncView.initialize();
     window.vncView = vncView;
 
 

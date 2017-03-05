@@ -51,6 +51,13 @@ function openVnc(vncOptions = {}) {
   vncWindow.tag = {
     vncOptions: vncOptions
   }
+  vncWindow.webContents.on('dom-ready', function(){
+    console.log("dom-ready")
+    vncWindow.webContents.executeJavaScript(`
+      console.log("init", vncView == null)
+      vncView.initialize({uri:'http://${vncOptions.host}:5900'});
+      `)
+  })
   vncWindows.push(vncWindow)
 }
 
