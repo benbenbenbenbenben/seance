@@ -30,6 +30,8 @@
     "chokidar": "^1.6.1",
     "edge": "^6.5.1",
     "electron": "^1.6.2",
+    "electron-localshortcut": "^1.0.0",
+    "keyboard-shortcut": "^1.2.0",
     "monkey-opencv": "^1.0.1",
     "opencv": "^6.0.0",
     "rfb2": "^0.2.0",

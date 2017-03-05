@@ -6,7 +6,7 @@ function readonly(target, key, descriptor) {
 }
 
 class Cat {
-  @readonly
+  
   meow() {
     return `${this.name} says Meow!`
   }

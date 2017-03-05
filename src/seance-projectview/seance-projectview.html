@@ -75,6 +75,7 @@
             switch(event) {
               case "add":
                 var icon = "icons:assignment";
+                var type = "file"
               case "addDir":
                 var at = data.children;
                 var split = path.replace(/\\/g,"/").split("/");
@@ -82,7 +83,7 @@
                   if (node == "." || node == "")
                     return;
                   if (at.filter(any => any.name == node).length == 0) {
-                    at.push({name:node, fullname:`${directory}/${path}`.replace(/\\/g,"/"), icon:icon || "icons:folder", children:[]});
+                    at.push({name:node, fullname:`${directory}/${path}`.replace(/\\/g,"/"), icon:icon || "icons:folder", children:[], pathtype:type || "folder"});
                   }
                   at = at.filter(any => any.name == node)[0].children;
                 });
@@ -100,7 +101,7 @@
 
       doubleClickTreeItem: function(event, node) {
         if (node.data && node.data.fullname)
-          this.fire('request-open', node.data.fullname);
+          this.fire('request-open', {type:node.data.pathtype, path:node.data.fullname});
       },
 
       ready: function() {

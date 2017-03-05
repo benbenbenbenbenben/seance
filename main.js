@@ -110,7 +110,11 @@ app.on('activate', function () {
   }
 })
 
-global.requestOpen = function(file) {
+global.requestOpen = function(data) {
+  var file = data.path
+  var type = data.type
+  if (type == 'folder')
+    return;
   var found = editorWindows.filter(win => win.tag.filename == file)
   if (found.length > 0) {
     found[0].show()
@@ -120,8 +124,8 @@ global.requestOpen = function(file) {
   }
 }
 
-exports.saveFile = function() {
-  console.log("bill berry's feet")
+exports.saveFile = function(data) {
+  require('fs').writeFileSync(data.filename, data.content)
 }
 
 // In this file you can include the rest of your app's specific main process
