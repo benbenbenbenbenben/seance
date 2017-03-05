@@ -37,7 +37,7 @@ function createMainWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     title: "hello",
-    pathname: path.join(__dirname, 'vnc.html'),
+    pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -118,6 +118,10 @@ global.requestOpen = function(file) {
   } else {
     var editor = openEditor(file);
   }
+}
+
+exports.saveFile = function() {
+  console.log("bill berry's feet")
 }
 
 // In this file you can include the rest of your app's specific main process

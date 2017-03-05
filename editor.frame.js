@@ -6,7 +6,8 @@ const closeWindow = function() {
 }
 
 const saveFile = function() {
-
+  debugger;
+  main.saveFile();
 }
 
 var menu = Menu.buildFromTemplate([
@@ -16,7 +17,7 @@ var menu = Menu.buildFromTemplate([
       {
         label: 'Save',
         click: function() {
-          
+          saveFile();
         }
       },
       {
