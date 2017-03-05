@@ -163,6 +163,7 @@ global.requestOpen = function(data) {
   }
 }
 
+exports.openVnc = openVnc;
 exports.requestVncView = function(options) {
   // options.server
   // options.port
