@@ -14,8 +14,10 @@ const saveFile = function() {
   });
 }
 
+let context
 const runScript = function(options = {debug:false}) {
-  console.log("run", options);
+  var result = main.runScript({filename:editor.filename})
+  console.log(result)
 }
 
 var menu = Menu.buildFromTemplate([
@@ -66,6 +68,10 @@ key('ctrl s', function (e) {
 
 key('f5', function(e) {
   runScript({debug:e.shiftKey});
+});
+
+key('f12', function(e) {
+  require('electron').remote.getCurrentWindow().toggleDevTools();
 });
 Menu.setApplicationMenu(menu);
 

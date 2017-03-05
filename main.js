@@ -32,7 +32,7 @@ function createSplashScreen() {
 
 function createMainWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 300, height: 600})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -45,7 +45,7 @@ function createMainWindow () {
   //mainWindow.initialize();
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -53,6 +53,7 @@ function createMainWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+
   })
 
 }
@@ -65,7 +66,7 @@ function openEditor(file) {
     slashes: true
   }))
 
-  editorWindow.webContents.openDevTools()
+  //editorWindow.webContents.openDevTools()
   editorWindow.tag = {
     filename: file
   }
@@ -110,6 +111,13 @@ app.on('activate', function () {
   }
 })
 
+
+
+const onScriptError = function(error) {
+  console.log(`script ended with error: ${error}`)
+}
+
+
 global.requestOpen = function(data) {
   var file = data.path
   var type = data.type
@@ -128,5 +136,37 @@ exports.saveFile = function(data) {
   require('fs').writeFileSync(data.filename, data.content)
 }
 
+exports.runScript = function(options) {
+  console.log("run", options);
+
+  // technique 1. require
+  global.vnc = function(){
+    console.log("vnc called")
+  }
+  try {
+    require(options.filename)
+  } catch(ex) {
+    console.log(ex.stack)
+    return {message:"error", arguments:[ex]}
+  }
+  return
+
+  // technique 2. fork
+  var fork = require('child_process').fork
+  context = fork('./editor.runner.js', [
+    `--script="${options.filename}"`
+  ])
+
+  context.on('message', function(message) {
+    console.log(arguments)
+    switch (message.message) {
+      case 'error':
+        onScriptError.apply(this, message.arguments)
+        break;
+      default:
+
+    }
+  })
+}
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
