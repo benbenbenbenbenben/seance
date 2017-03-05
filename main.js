@@ -8,11 +8,16 @@ const path = require('path')
 const url = require('url')
 //const VncView = require('./vnc/atom-vnc/lib/vnc-view.js')
 
+const unrequire = require('./unrequire.js')
+
+global.mediums = require('./mediums.js')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let splashScreen
 let editorWindows = []
+let vncWindows = []
 
 function createSplashScreen() {
 //  splashScreen = new BrowserWindow({width: 500, height: 240, frame:false})
@@ -28,6 +33,25 @@ function createSplashScreen() {
 //  })
 
   createMainWindow();
+}
+
+function openVnc(vncOptions = {}) {
+  let vncWindow = new BrowserWindow({width: 800, height: 600})
+  vncWindow.loadURL(url.format({
+    title: "vnc",
+    pathname: path.join(__dirname, 'vnc.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+  vncWindow.on('closed', function () {
+    var index = vncWindows.indexOf(vncWindow)
+    vncWindows.splice(index, 1)
+    vncWindow = null
+  })
+  vncWindow.tag = {
+    vncOptions: vncOptions
+  }
+  vncWindows.push(vncWindow)
 }
 
 function createMainWindow () {
@@ -132,6 +156,21 @@ global.requestOpen = function(data) {
   }
 }
 
+exports.requestVncView = function(options) {
+  // options.server
+  // options.port
+  // options.password
+  var found = vncWindows.filter(win => win.tag.vncOptions.host == options.host)
+  if (found.length > 0) {
+    found[0].show()
+    found[0].restore()
+    found[0].warnRequestControl()
+    return false
+  }
+  var vnc = openVnc(options)
+  return true
+}
+
 exports.saveFile = function(data) {
   require('fs').writeFileSync(data.filename, data.content)
 }
@@ -140,10 +179,11 @@ exports.runScript = function(options) {
   console.log("run", options);
 
   // technique 1. require
-  global.vnc = function(){
-    console.log("vnc called")
-  }
   try {
+    unrequire(options.filename)
+    var avar = 10;
+    let blet = 10;
+    const cconst = 10;
     require(options.filename)
   } catch(ex) {
     console.log(ex.stack)

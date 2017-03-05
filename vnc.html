@@ -1,7 +1,18 @@
-<script>
-VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
-const vncView = new VncView;
-document.write(vncView.content());
-vncView.initialize();
-window.vncView = vncView;
-</script>
+<body style="margin:0;overflow:hidden;">
+  <script>
+    VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
+    const vncView = new VncView;
+    document.write(vncView.content());
+    vncView.initialize();
+    window.vncView = vncView;
+
+
+    var key = require('keyboard-shortcut');
+
+    key('f12', function(e) {
+      require('electron').remote.getCurrentWindow().toggleDevTools();
+    });
+
+
+  </script>
+</body>
