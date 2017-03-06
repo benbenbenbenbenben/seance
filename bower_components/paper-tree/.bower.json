@@ -1,7 +1,6 @@
 {
   "name": "paper-tree",
   "main": "paper-tree.html",
-  "version": "1.0.2",
   "description": "A custom element displaying a browsable tree.",
   "keywords": [
     "tree",
@@ -30,13 +29,13 @@
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "1.0.2",
+  "_release": "63866ee30d",
   "_resolution": {
-    "type": "version",
-    "tag": "v1.0.2",
-    "commit": "da3f8bd6c3506a08b9b7ee6b79d8b7f193eee82c"
+    "type": "branch",
+    "branch": "tap_not_click",
+    "commit": "63866ee30dbb395a4662664aab4223796e818bff"
   },
-  "_source": "https://github.com/vpusher/paper-tree.git",
-  "_target": "^1.0.2",
-  "_originalSource": "paper-tree"
+  "_source": "https://github.com/benbenbenbenbenben/paper-tree.git",
+  "_target": "tap_not_click",
+  "_originalSource": "https://github.com/benbenbenbenbenben/paper-tree.git"
 }

@@ -3,7 +3,7 @@
 
 with (mediums.vnc) {
     
-    connect("curlyben")
+    connect("msedgewin10")
     
     doubleclick("chromeicon.png")
 

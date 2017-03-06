@@ -1,3 +1,6 @@
+<head>
+  <link rel="stylesheet" href="./bower_components/cropperjs/dist/cropper.css">
+</head>
 <body style="margin:0;overflow:hidden;background:black;">
   <script>
     VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
@@ -13,6 +16,30 @@
       require('electron').remote.getCurrentWindow().toggleDevTools();
     });
 
+    window.cropper = require("cropperjs")
+
+    // activate cropper
+    window.activateCropper = function() {
+      window.activeCropper = new Cropper(vncView.drawable, {
+        viewMode: 0,
+        dragMode: 'move',
+        autoCropArea: 0.1,
+        restore: false,
+        modal: false,
+        guides: true,
+        highlight: true,
+        cropBoxMovable: true,
+        cropBoxResizable: true,
+        toggleDragModeOnDblclick: true,
+      });
+    }
+
+    window.destroyCropper = function() {
+      if (window.activeCropper) {
+        window.activeCropper.destroy()
+        window.activeCropper = null
+      }
+    }
 
   </script>
 </body>
