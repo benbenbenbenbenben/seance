@@ -51,6 +51,7 @@ function openVnc(vncOptions = {}) {
   vncWindow.tag = {
     vncOptions: vncOptions
   }
+  vncWindow.webContents.openDevTools();
   vncWindow.webContents.on('dom-ready', function(){
     console.log("dom-ready")
     vncWindow.webContents.executeJavaScript(`
