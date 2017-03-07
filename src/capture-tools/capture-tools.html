@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
 
 <dom-module id="capture-tools">
   <template>
@@ -35,10 +36,25 @@
         border-radius: 3px;
         padding: 2px;
       }
+      #toolbox {
+        background: white;
+        width: auto;
+        height: auto;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        opacity: 0.9;
+        -webkit-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.55);
+        -moz-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.55);
+        box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.55);
+        padding: 4px;
+      }
     </style>
 
-    <div style="background: red; width: 100px; height: 300px; position: fixed; top: 10px; left: 10px;">
-      <paper-icon-button icon="flight-takeoff" title="take off" class="blue"></paper-icon-button>
+    <div id="toolbox">
+      <template is="dom-repeat" items="{{currentToolset}}">
+        <paper-icon-button icon="{{item.icon}}" title="{{item.title}}" class$="{{item.cssclass}}" on-tap="toolTapped"></paper-icon-button>
+      </template>
     </div>
 
   </template>
@@ -49,14 +65,40 @@
       is: 'capture-tools',
 
       properties: {
-        directory: {
-          type: String,
-          observer: '_directoryChanged'
+        toolsets: {
+          type: Array,
+          value: [
+            [
+              {
+                icon: "icons:camera-enhance",
+                title: "capture",
+                cssclass: "blue",
+                action: function(){console.log("capture clicked")},
+                enabled: true
+              }
+            ]
+          ]
         },
+        currentToolsetIndex: {
+          type: Number,
+          notify: true,
+          value: 0,
+          observer: 'selectToolsetByIndex'
+        },
+        currentToolset: {
+          type: Array,
+          notify: true
+        }
       },
 
-      func: function() {
+      toolTapped: function(event) {
+        event.currentTarget._templateInstance.item.action();
+      },
 
+      selectToolsetByIndex: function(index, oldIndex) {
+        if (index === oldIndex)
+          return
+        this.currentToolset = this.toolsets[index]
       }
 
     });

@@ -16,6 +16,39 @@
     //vncView.initialize();
     window.vncView = vncView;
 
+    // configure and install tools
+    document.body.appendChild(
+      window.captureTools = document.createElement('capture-tools')
+    )
+    window.captureTools.toolsets = [
+      [
+        {
+          icon: "icons:camera-enhance",
+          title: "capture",
+          cssclass: "blue",
+          action: function() {
+            window.activateCropper()
+            window.captureTools.selectToolsetByIndex(1)
+          },
+          enabled: true
+        }
+      ],
+      [
+        {
+          icon: "hardware:mouse",
+          title: "control",
+          cssclass: "blue",
+          action: function() {
+            // TODO confirm unsaved capture
+            window.destroyCropper()
+            window.captureTools.selectToolsetByIndex(0)
+          },
+          enabled: true
+        }
+      ]
+    ]
+    window.captureTools.selectToolsetByIndex(0)
+    //
 
     var key = require('keyboard-shortcut');
 
@@ -40,15 +73,12 @@
         toggleDragModeOnDblclick: true,
       });
 
-      document.body.appendChild(window.captureTools = document.createElement('capture-tools'))
     }
 
     window.destroyCropper = function() {
       if (window.activeCropper) {
         window.activeCropper.destroy()
         window.activeCropper = null
-        document.body.removeChild(window.captureTools)
-        window.captureTools = null
       }
     }
 
