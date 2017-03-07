@@ -1,4 +1,14 @@
-<body style="margin:0;overflow:hidden;background:black;">
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="./bower_components/cropperjs/dist/cropper.css">
+
+      <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+      <link rel="import" href="./src/capture-tools/capture-tools.html">
+
+</head>
+<body style="margin:0;overflow:hidden;background:black;" click="doubleClick">
   <script>
     VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
     const vncView = new VncView;
@@ -13,6 +23,48 @@
       require('electron').remote.getCurrentWindow().toggleDevTools();
     });
 
+    window.cropper = require("cropperjs")
+
+    // activate cropper
+    window.activateCropper = function() {
+      window.activeCropper = new Cropper(vncView.drawable, {
+        viewMode: 0,
+        dragMode: 'move',
+        autoCropArea: 0.1,
+        restore: false,
+        modal: true,
+        guides: true,
+        highlight: true,
+        cropBoxMovable: true,
+        cropBoxResizable: true,
+        toggleDragModeOnDblclick: true,
+      });
+
+      document.body.appendChild(window.captureTools = document.createElement('capture-tools'))
+    }
+
+    window.destroyCropper = function() {
+      if (window.activeCropper) {
+        window.activeCropper.destroy()
+        window.activeCropper = null
+        document.body.removeChild(window.captureTools)
+        window.captureTools = null
+      }
+    }
+
+    window.storeCropRegion = function(filename, done) {
+      let region = window.activeCropper.getData()
+      window.vncView.captureFrameRegion(region.x, region.y, region.width, region.height, (data) => {
+        require('fs').writeFileSync(filename, data)
+        done()
+      });
+    }
+
+    let doubleClick = function() {
+      debugger;
+    }
 
   </script>
+
 </body>
+</html>
