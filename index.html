@@ -12,10 +12,13 @@
 <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="./manifest.json">
 
-
     <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="./src/seance-projectview/seance-projectview.html">
+    <link rel="import" href="./src/vnc-connection/vnc-connection.html">
+    <link rel="import" href="./bower_components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="./bower_components/paper-input/paper-input.html">
+    <link rel="import" href="./bower_components/polymer/polymer.html">
 
     <style>
       body {
@@ -31,14 +34,19 @@
 
   </head>
   <body>
+    <paper-dialog id="connectiondialog" width="100%">
+      <div>Enter credentials to connect to vnc client</div>
+      <vnc-connection id="connectDialog" vncip="localghost"></vnc-connection>
+    </paper-dialog>
     <seance-projectview id="projectView"></seance-projectview>
   </body>
 
   <script>
     // You can also require other files to run in this process
-    require('./index.js')
-
-
+    var index = require('./index.js')
+    connectDialog.addEventListener("login", function(event){
+      index.openVnc(event.detail)
+    })
   </script>
   <script>
    HTMLImports.whenReady(function () {
@@ -51,4 +59,5 @@
 
    });
  </script>
+
 </html>

@@ -1,0 +1,32 @@
+<script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vnc-connection">
+  <template>
+    <div>
+      <paper-input id="vncIP" label="Address" value="{{host}}"></paper-input>
+      <paper-input id="vncport" label="Port (default :5900)"></paper-input>
+      <paper-input id="vncusername" label="Username (optional)"></paper-input>
+      <paper-input id="vncpassword" label="Password (optional)"></paper-input>
+    </div>
+    <div>
+      <paper-button id="vncconnect" on-tap="connect">Connect</paper-button>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: "vnc-connection",
+      properties: {
+        host:{
+          type: String,
+          value: "localghost"
+        }
+      },
+      connect: function(e) {
+        this.fire("login", {host: this.host});
+      }
+    });
+  </script>
+</dom-module>

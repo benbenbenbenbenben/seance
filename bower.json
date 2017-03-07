@@ -6,7 +6,9 @@
     "paper-tree": "https://github.com/benbenbenbenbenben/paper-tree.git#tap_not_click",
     "app-layout": "PolymerElements/app-layout#^0.10.7",
     "paper-drawer-panel": "^1.0.11",
-    "cropperjs": "^0.8.1"
+    "cropperjs": "^0.8.1",
+    "paper-dialog": "^1.1.0",
+    "paper-input": "^1.1.23"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

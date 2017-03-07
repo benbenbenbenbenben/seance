@@ -6,8 +6,8 @@ const {Menu} = require('electron').remote;
 const main = require('electron').remote.require('./main.js')
 var key = require('keyboard-shortcut');
 
-const openVnc = function() {
-  main.openVnc({"host":"curlyben"});
+const openVnc = module.exports.openVnc = function(args) {
+  main.openVnc(args);
 }
 
 var menu = Menu.buildFromTemplate([
@@ -17,7 +17,7 @@ var menu = Menu.buildFromTemplate([
       {
         label: 'Open VNC View',
         click: function() {
-          openVnc();
+          connectiondialog.open()
         }
       }
     ]
