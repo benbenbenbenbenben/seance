@@ -21,8 +21,10 @@ The following custom properties and mixins are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-tree-selected-background-color`      | Highlight color for selected node         | `rgba(200, 200, 200, 0.5)`
-`--paper-tree-selected-color`                | Text and icon color for selected node     | `inherit`
+`--paper-tree-selected-background-color`      | Highlight color for selected node           | `rgba(200, 200, 200, 0.5)`
+`--paper-tree-selected-color`                 | Text and icon color for selected node       | `inherit`
+`--paper-tree-toggle-theme`                   | Change theme for node +/- toggle            |
+`--paper-tree-icon-theme`                     | Change theme for node icon                  |
 
 @demo
 -->
@@ -42,13 +44,13 @@ Custom property | Description | Default
             display: inline-block;
         }
 
+        .node-container {
+            white-space: nowrap;
+        }
+
         .node-row {
             padding-left: 4px;
             padding-right: 4px;
-        }
-
-        .node-preicon {
-            padding-left: 23px;
         }
 
         .node-preicon.collapsed,
@@ -56,14 +58,21 @@ Custom property | Description | Default
             padding-left: 0px;
         }
 
+        .node-preicon {
+            padding-left: 18px;
+        }
+
+        .node-preicon:before {
+            margin-right: 5px;
+            @apply(--paper-tree-toggle-theme);
+        }
+
         .node-preicon.collapsed:before {
             content: '\002B';
-            padding: 5px;
         }
 
         .node-preicon.expanded:before {
             content: '\2212';
-            padding: 5px;
         }
 
         .node-preicon, .node-name {
@@ -74,6 +83,7 @@ Custom property | Description | Default
             cursor: pointer;
             width: 24px;
             height: 24px;
+            @apply(--paper-tree-icon-theme);
         }
 
         #actions {
@@ -115,13 +125,13 @@ Custom property | Description | Default
                 </template>
             </div>
             <template is="dom-if" if="{{data.open}}">
-                <template is="dom-repeat" items="{{data.children}}">
-                    <ul>
-                        <li>
-                            <paper-tree-node data="{{item}}" actions="{{actions}}"></paper-tree-node>
-                        </li>
-                    </ul>
-                </template>
+              <ul>
+                  <template is="dom-repeat" items="{{data.children}}">
+                      <li>
+                          <paper-tree-node data="{{item}}" actions="{{actions}}"></paper-tree-node>
+                      </li>
+                  </template>
+              </ul>
             </template>
         </div>
     </template>
@@ -176,6 +186,12 @@ Custom property | Description | Default
          */
 
         /**
+         * The `toggle` event is fired whenever a tree node is expanded or collapsed.
+         *
+         * @event toggle
+         */
+
+        /**
          * Returns the necessary classes.
          *
          * @param {object} change An object containing the property that changed and its value.
@@ -206,22 +222,29 @@ Custom property | Description | Default
          */
         select: function() {
             this.fire("select", this);
-            if (this.selectDbl) {
-              this.toggleChildren();
-              this.fire("double-tap", this);
-            } else {
-              this.selectDbl = true;
-              this.async(() => {
-                this.selectDbl = false;
-              }, 400 /* TODO OS double click time? */);
+            this.fire("tap", this);
+            if (this.tapped) {
+              debugger;
+              this.fire("double-tap", this)
             }
+            this.tapped = true
+            setTimeout(() => {
+              this.tapped = false
+            }, 400)
         },
 
         /**
-         * Returns the parent node. Returns `null` if root.
+         * Returns the parent tree node. Returns `null` if root.
          */
         getParent: function () {
-            return this.domHost.tagName === 'WOOD-TREE-NODE' ? this.domHost : null;
+            return this.domHost.tagName === 'PAPER-TREE-NODE' ? this.domHost : null;
+        },
+
+        /**
+         * Returns the children tree nodes.
+         */
+        getChildren: function () {
+            return Polymer.dom(this.root).querySelectorAll('paper-tree-node');
         },
 
         /**
@@ -229,6 +252,7 @@ Custom property | Description | Default
          */
         toggleChildren: function() {
             this.set("data.open", !this.data.open && this.data.children && this.data.children.length);
+            setTimeout(this.fire.bind(this, "toggle", this));
         }
 
     });

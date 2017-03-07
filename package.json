@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "chokidar": "^1.6.1",
+    "cropper": "^3.0.0-beta",
+    "cropperjs": "^1.0.0-beta.2",
     "edge": "^6.5.1",
     "electron": "^1.6.2",
     "electron-localshortcut": "^1.0.0",
