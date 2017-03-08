@@ -12,6 +12,7 @@
   <script>
     VncView = require('./vnc/atom-vnc/lib/vnc-view.js');
     const vncView = new VncView;
+
     document.write(vncView.content());
     //vncView.initialize();
     window.vncView = vncView;
@@ -45,7 +46,7 @@
       [
         {
           icon: "hardware:mouse",
-          title: "control",
+          title: "resume control",
           cssclass: "blue",
           action: function() {
             // TODO confirm unsaved capture

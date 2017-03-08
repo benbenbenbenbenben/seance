@@ -9,7 +9,7 @@
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
 
-<dom-module id="capture-tools">
+<dom-module id="main-toolbar">
   <template>
     <style is="custom-style">
       :host {
@@ -20,6 +20,9 @@
       }
       .node-name {
         color: red;
+      }
+      paper-icon-button {
+        /*float: left;*/
       }
       paper-icon-button.pink {
         color: var(--paper-pink-500);
@@ -33,25 +36,23 @@
         --paper-icon-button-ink-color: var(--paper-orange-500);
         background-color: var(--paper-light-blue-500);
         color: white;
-        border-radius: 3px;
         padding: 2px;
       }
       #toolbox {
         background: white;
-        width: auto;
+        width: 100%;
         height: auto;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        opacity: 0.9;
-        -webkit-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.55);
-        -moz-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.55);
-        box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.55);
-        padding: 2px;
+        position: relative;
+        top: 0px;
+        left: 0px;
+        padding: 0px;
+        margin: -8px;
       }
       paper-icon-button.mini {
-        width: 22px;
-        height: 22px;
+        width: var(--main-toolbar-icon-size, 24px);
+        height: var(--main-toolbar-icon-size, 24px);
+        padding: 4px;
+        margin: 1px 0px 0px 0px;
       }
     </style>
 
@@ -66,7 +67,7 @@
   <script>
     Polymer({
 
-      is: 'capture-tools',
+      is: 'main-toolbar',
 
       properties: {
         toolsets: {

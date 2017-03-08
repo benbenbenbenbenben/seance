@@ -4,7 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <style>
+    <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="./bower_components/polymer/polymer.html">
+    <link rel="import" href="./src/main-toolbar/main-toolbar.html">
+
+    <style is="custom-style">
+    :root {
+       --main-toolbar-icon-size: 26px;
+     }
     body {
     /* background-image: url('./assets/Artboard 1.png'); */
       background-color: white;
@@ -17,7 +24,7 @@
     }
     #editor {
        position: absolute;
-       top: 0;
+       top: 28px;
        right: 0;
        bottom: 0;
        left: 0;
@@ -29,7 +36,10 @@
 
   </head>
   <body>
-    <div id="editor"></div>
+    <main-toolbar></main-toolbar>
+    <div>
+      <div id="editor"></div>
+    </div>
     <!--div id="footer">
       <p><span id="footer_message">loading messge here</span></p>
     </div-->
