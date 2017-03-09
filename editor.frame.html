@@ -36,7 +36,7 @@
 
   </head>
   <body>
-    <main-toolbar></main-toolbar>
+    <main-toolbar id="editorToolbar"></main-toolbar>
     <div>
       <div id="editor"></div>
     </div>
@@ -50,6 +50,35 @@
       var editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
       editor.getSession().setMode("ace/mode/javascript");
+
+      editorToolbar.toolsets = [
+        [{
+          icon: "icons:save",
+          title: "capture",
+          cssclass: "blue",
+          action: function() {
+            require('./editor.frame.js').saveFile()
+          },
+          enabled: true
+        },{
+          icon: "av:play-arrow",
+          title: "capture",
+          cssclass: "blue",
+          action: function() {
+            require('./editor.frame.js').runScript()
+          },
+          enabled: true
+        },{
+          icon: "av:stop",
+          title: "capture",
+          cssclass: "blue",
+          action: function() {
+            require('./editor.frame.js')
+          },
+          enabled: true
+        }]
+      ]
+      editorToolbar.currentToolsetIndex = 0
   </script>
 
   <script>

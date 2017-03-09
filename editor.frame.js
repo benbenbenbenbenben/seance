@@ -1,11 +1,13 @@
 const {Menu} = require('electron').remote;
 const main = require('electron').remote.require('./main.js')
 
-const closeWindow = function() {
+const closeWindow =
+module.exports.closeWindow = function() {
   close();
 }
 
-const saveFile = function() {
+const saveFile =
+module.exports.saveFile = function() {
   var content = editor.getValue();
   var filename = editor.filename;
   main.saveFile({
@@ -15,9 +17,14 @@ const saveFile = function() {
 }
 
 let context
-const runScript = function(options = {debug:false}) {
-  var result = main.runScript({filename:editor.filename})
-  console.log(result)
+const runScript =
+module.exports.runScript = function(options = {debug:false}) {
+  var context = main.runScript({filename:editor.filename})
+}
+
+const stopScript =
+module.exports.stopScript = function() {
+  context.destroy()
 }
 
 var menu = Menu.buildFromTemplate([
