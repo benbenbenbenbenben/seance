@@ -180,8 +180,18 @@ exports.requestVncView = function(options) {
   return true
 }
 
-exports.saveFile = function(data) {
+let saveFile = exports.saveFile = function(data) {
   require('fs').writeFileSync(data.filename, data.content)
+}
+
+
+exports.saveFileAutonamed = function(data, callback) {
+  // TODO get a file name in this project directory
+  // data.extension is file extension
+  // data.buffer is file buffer
+  let autoFilename = "C:/totallynotafile.png"
+  saveFile({content:data.buffer, filename:autoFilename})
+  callback(autoFilename)
 }
 
 exports.runScript = function(options) {
