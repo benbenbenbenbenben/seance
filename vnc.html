@@ -54,6 +54,17 @@
             window.captureTools.selectToolsetByIndex(0)
           },
           enabled: true
+        },
+        {
+          icon: "image:crop",
+          title: "save selection",
+          cssclass: "blue",
+          action: function() {
+            window.storeCropRegion("auto:png", function(result) {
+              console.log(`saved image ${result.filename}`);
+            });
+          },
+          enabled: true
         }
       ]
     ]
@@ -82,7 +93,6 @@
         cropBoxResizable: true,
         toggleDragModeOnDblclick: true,
       });
-
     }
 
     window.destroyCropper = function() {
@@ -94,9 +104,14 @@
 
     window.storeCropRegion = function(filename, done) {
       let region = window.activeCropper.getData()
+      console.log(filename);
+
       window.vncView.captureFrameRegion(region.x, region.y, region.width, region.height, (data) => {
-        require('fs').writeFileSync(filename, data)
-        done()
+        //require('fs').writeFileSync(filename, data)
+        //done({filename:filename})
+        require('electron').remote.require('./main.js').saveFileAutonamed({extension:'png', buffer:data}, (newFilename) => {
+          done({filename:newFilename})
+        })
       });
     }
 

@@ -180,8 +180,23 @@ exports.requestVncView = function(options) {
   return true
 }
 
-exports.saveFile = function(data) {
+let saveFile = exports.saveFile = function(data) {
   require('fs').writeFileSync(data.filename, data.content)
+}
+
+
+exports.saveFileAutonamed = function(data, callback) {
+  // TODO get a file name in this project directory
+  // data.extension is file extension
+  // data.buffer is file buffer
+
+  require("fs").exists('./repo', (exists) => {
+    exists ? true : require("fs").mkdir("./repo");
+  });
+  let now = new Date().toISOString().replace(/[T\-\:]/g,'').replace(/\..+/, '')
+  let autoFilename = `./repo/${now}.png`
+  saveFile({content:data.buffer, filename:autoFilename})
+  callback(autoFilename)
 }
 
 exports.runScript = function(options) {
