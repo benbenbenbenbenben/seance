@@ -189,14 +189,20 @@ exports.saveFileAutonamed = function(data, callback) {
   // TODO get a file name in this project directory
   // data.extension is file extension
   // data.buffer is file buffer
-
-  require("fs").exists('./repo', (exists) => {
-    exists ? true : require("fs").mkdir("./repo");
+  let func = () => {
     let now = new Date().toISOString().replace(/[T\-\:]/g,'').replace(/\..+/, '')
     let autoFilename = `./repo/${now}.png`
     saveFile({content:data.buffer, filename:autoFilename})
     callback(autoFilename)
+  }
+  require("fs").exists('./repo', (exists) => {
+    exists ? func() : require("fs").mkdir("./repo", func);
   });
+}
+
+/* only png format for now i.e. {buffer:[0..n], format:png}*/
+exports.findTemplatesInImage(data, callback) {
+
 }
 
 exports.runScript = function(options) {
