@@ -192,11 +192,11 @@ exports.saveFileAutonamed = function(data, callback) {
 
   require("fs").exists('./repo', (exists) => {
     exists ? true : require("fs").mkdir("./repo");
+    let now = new Date().toISOString().replace(/[T\-\:]/g,'').replace(/\..+/, '')
+    let autoFilename = `./repo/${now}.png`
+    saveFile({content:data.buffer, filename:autoFilename})
+    callback(autoFilename)
   });
-  let now = new Date().toISOString().replace(/[T\-\:]/g,'').replace(/\..+/, '')
-  let autoFilename = `./repo/${now}.png`
-  saveFile({content:data.buffer, filename:autoFilename})
-  callback(autoFilename)
 }
 
 exports.runScript = function(options) {
